@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF000000">
+
+    <ImageView
+        android:id="@+id/photo_a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/photo_b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <!-- Видео поверх фото; прозрачностью подложки делается плавный переход -->
+    <!-- SurfaceView для видео добавляется сюда только на время показа (VideoLayer) -->
+    <FrameLayout
+        android:id="@+id/video_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="#FF000000" />
+
+    <!-- Стрелки листания (кнопки ← → пульта): видны всегда, при нажатии ярче -->
+    <ImageView
+        android:id="@+id/arrow_prev"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="24dp"
+        android:alpha="0.45"
+        android:background="@drawable/arrow_bg"
+        android:importantForAccessibility="no"
+        android:padding="14dp"
+        android:rotation="180"
+        android:src="@drawable/ic_chevron" />
+
+    <ImageView
+        android:id="@+id/arrow_next"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="24dp"
+        android:alpha="0.45"
+        android:background="@drawable/arrow_bg"
+        android:importantForAccessibility="no"
+        android:padding="14dp"
+        android:src="@drawable/ic_chevron" />
+
+    <!-- Подпись к фото и видео из Telegram: «от Мамы · Самарканд» -->
+    <TextView
+        android:id="@+id/caption"
+        style="@style/OverlayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="28dp"
+        android:alpha="0"
+        android:background="@drawable/panel_bg"
+        android:maxWidth="520dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:textSize="18sp" />
+
+    <!-- Пока нет ни одного фото из Telegram -->
+    <TextView
+        android:id="@+id/empty_hint"
+        style="@style/OverlayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:textColor="@color/text_dim"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <!-- Верхняя строка: часы и дата · погода · курсы. Неподвижна. -->
+    <LinearLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@drawable/top_scrim"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="44dp">
+
+        <!-- Часы, под ними день недели и дата по-таджикски -->
+        <include
+            android:id="@+id/clock_box"
+            layout="@layout/item_big_value" />
+
+        <!-- Следующий намаз рядом с часами: крупное время, под ним «Намоз – Бомдод» -->
+        <include
+            android:id="@+id/prayer"
+            layout="@layout/item_big_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:visibility="gone" />
+
+        <!-- Распорка: погода и курсы прижаты вправо -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <tj.tvsaver.WeatherIconView
+                android:id="@+id/weather_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <TextView
+                android:id="@+id/weather_temp"
+                style="@style/OverlayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-light"
+                android:textSize="28sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/weather_desc"
+                    style="@style/OverlayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/weather_minmax"
+                    style="@style/OverlayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/text_dim"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- «Обновлено в …» — мелко в левом нижнем углу -->
+    <TextView
+        android:id="@+id/footer"
+        style="@style/OverlayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="20dp"
+        android:lineSpacingExtra="2dp"
+        android:textColor="@color/text_faint"
+        android:textSize="11sp" />
+</FrameLayout>

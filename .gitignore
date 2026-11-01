@@ -1,0 +1,24 @@
+# Сборка и IDE
+.gradle/
+.kotlin/
+build/
+app/build/
+captures/
+.idea/
+*.iml
+*.apk
+*.aab
+
+# Локальные настройки и секреты
+local.properties
+keystore.properties
+.env
+.env.*
+*.jks
+*.keystore
+*.pem
+*.p12
+
+# Личные скриншоты и системный мусор
+shot*.png
+.DS_Store

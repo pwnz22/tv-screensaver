@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="panel_bg">#8C000000</color>
+    <color name="text_main">#FFFFFFFF</color>
+    <color name="text_dim">#B3FFFFFF</color>
+    <color name="text_faint">#80FFFFFF</color>
+    <color name="accent">#FF4FC3F7</color>
+    <color name="settings_bg">#FF101418</color>
+    <color name="row_bg">#FF1C232B</color>
+    <color name="row_focused">#FF2E5A7A</color>
+
+    <style name="SettingsTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">@color/settings_bg</item>
+    </style>
+
+    <!-- Общий стиль текста поверх фото: тень для читаемости на светлых снимках -->
+    <style name="OverlayText">
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:shadowColor">#CC000000</item>
+        <item name="android:shadowRadius">6</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+</resources>
